@@ -4,7 +4,7 @@ Helpers for dealing with HTML input.
 import re
 
 from django.utils.datastructures import MultiValueDict
-from rest_framework.rest_framework import is_html_input
+from rest_framework.rest_framework import is_html_input, parse_html_dict
 
 # def is_html_input(dictionary):
 #     # MultiDict type datastructures are used to represent HTML form input,
@@ -66,30 +66,30 @@ def parse_html_list(dictionary, prefix='', default=None):
     return [ret[item] for item in sorted(ret)] if ret else default
 
 
-def parse_html_dict(dictionary, prefix=''):
-    """
-    Used to support dictionary values in HTML forms.
-
-    {
-        'profile.username': 'example',
-        'profile.email': 'example@example.com',
-    }
-        -->
-    {
-        'profile': {
-            'username': 'example',
-            'email': 'example@example.com'
-        }
-    }
-    """
-    ret = MultiValueDict()
-    regex = re.compile(r'^%s\.(.+)$' % re.escape(prefix))
-    for field in dictionary:
-        match = regex.match(field)
-        if not match:
-            continue
-        key = match.groups()[0]
-        value = dictionary.getlist(field)
-        ret.setlist(key, value)
-
-    return ret
+# def parse_html_dict(dictionary:MultiValueDict, prefix=''):
+#     """
+#     Used to support dictionary values in HTML forms.
+#
+#     {
+#         'profile.username': 'example',
+#         'profile.email': 'example@example.com',
+#     }
+#         -->
+#     {
+#         'profile': {
+#             'username': 'example',
+#             'email': 'example@example.com'
+#         }
+#     }
+#     """
+#     ret = MultiValueDict()
+#     regex = re.compile(r'^%s\.(.+)$' % re.escape(prefix))
+#     for field in dictionary:
+#         match = regex.match(field)
+#         if not match:
+#             continue
+#         key = match.groups()[0]
+#         value = dictionary.getlist(field)
+#         ret.setlist(key, value)
+#
+#     return ret
