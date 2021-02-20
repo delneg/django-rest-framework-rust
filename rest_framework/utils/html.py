@@ -4,12 +4,12 @@ Helpers for dealing with HTML input.
 import re
 
 from django.utils.datastructures import MultiValueDict
+from rest_framework.rest_framework import is_html_input
 
-
-def is_html_input(dictionary):
-    # MultiDict type datastructures are used to represent HTML form input,
-    # which may have more than one value for each key.
-    return hasattr(dictionary, 'getlist')
+# def is_html_input(dictionary):
+#     # MultiDict type datastructures are used to represent HTML form input,
+#     # which may have more than one value for each key.
+#     return hasattr(dictionary, 'getlist')
 
 
 def parse_html_list(dictionary, prefix='', default=None):
